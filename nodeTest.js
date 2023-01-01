@@ -1,11 +1,11 @@
-// const name = require("./module-1");
-// const print = require("./module-2");
-// print(name.name_1);
+//Getting Serious with classes and OOP
 
-let x = [1233241];
-let newArr = [];
-
-for (let j = x.length - 1; j > 0; j--) {
-  newArr = x[j];
+class Person {
+  constructor() {
+    console.log("Person has been created");
+  }
 }
-console.log(newArr);
+
+const first_person = new Person();
+
+console.log(first_person);
