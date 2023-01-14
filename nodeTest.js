@@ -62,22 +62,34 @@
 
 // console.log("hellp");
 
-const { readFileSync } = require("fs");
+// const { readFileSync } = require("fs");
 
-const homePage = readFileSync("./navbar/index.html", "utf8");
+// const homePage = readFileSync("./navbar/index.html", "utf8");
 
-const http = require("http");
+// const http = require("http");
 
-const server = http.createServer((req, res) => {
-  if (req.url === "/") {
-    res.end(homePage);
-  }
-  if (req.url === "/about") {
-    res.end("About the Great Emmanuel kumah");
-  }
-  res.end("<h1>Page not found</h1>");
+// const server = http.createServer((req, res) => {
+//   if (req.url === "/") {
+//     res.end(homePage);
+//   } else if (req.url === "/about") {
+//     res.end("About the Great Emmanuel kumah");
+//   } else {
+//     res.end("<h1>Page not found</h1>");
+//   }
+// });
+
+// server.listen(5000);
+
+// console.log("Hello");
+
+const express = require("express");
+
+const path = require("path");
+const app = express();
+
+app.use(express.static("./publick"));
+app.get("/", (req, res) => {
+  res.sendFile(path.resolve("./navbar/index.html"));
 });
 
-server.listen(5000);
-
-console.log("Hello");
+app.listen(5000);
