@@ -50,12 +50,34 @@
 
 // student_1.animatePerson();
 
+// const http = require("http");
+
+// const server = http.createServer((req, res) => {
+//   console.log(req.url);
+//   res.write("Hellos Node world");
+//   res.end();
+// });
+
+// server.listen(1000);
+
+// console.log("hellp");
+
+const { readFileSync } = require("fs");
+
+const homePage = readFileSync("./navbar/index.html", "utf8");
+
 const http = require("http");
 
 const server = http.createServer((req, res) => {
-  console.log(req.url);
-  res.write("Hellos Node world");
-  res.end();
+  if (req.url === "/") {
+    res.end(homePage);
+  }
+  if (req.url === "/about") {
+    res.end("About the Great Emmanuel kumah");
+  }
+  res.end("<h1>Page not found</h1>");
 });
 
-server.listen(1000);
+server.listen(5000);
+
+console.log("Hello");
