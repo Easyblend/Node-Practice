@@ -86,25 +86,45 @@ const express = require("express");
 
 const { products } = require("./products");
 
-const path = require("path");
+// const path = require("path");
 const app = express();
 
+app.listen(5000, () => {
+  console.log("Server Started");
+});
+
+app.use(express.static("./public"));
+app.use(express.urlencoded({ extended: false }));
+
+app.get("/api/request", (req, res) => {
+  res.send(products);
+});
+
+app.post("/login", (req, res) => {
+  const { Name } = req.body;
+  console.log(req.body);
+  if (Name) {
+    return res.status(200).send(`Welcome ${Name}`);
+  } else {
+    return res.send("No user found");
+  }
+});
 // app.use(express.static("./publick"));
 
 // app.get("/", (req, res) => {
 //   res.sendFile(path.resolve("./navbar/index.html"));
 // });
 
-app.get("/", (req, res) => {
-  res.end("<h1>HomePage</h1> <br/> <a href ='api/get-products'>Products</a>");
-});
+// app.get("/", (req, res) => {
+//   res.end("<h1>HomePage</h1> <br/> <a href ='api/get-products'>Products</a>");
+// });
 
-app.get("/api/get-products/query", (req, res) => {
-  const { id, name, search } = req.query;
-  console.log(search);
-  const newProducts = products.filter((product) => {
-    return product.first_name.startsWith(search);
-  });
-  res.status(200).json(newProducts);
-});
-app.listen(5000);
+// app.get("/api/get-products/query", (req, res) => {
+//   const { id, name, search } = req.query;
+//   console.log(search);
+//   const newProducts = products.filter((product) => {
+//     return product.first_name.startsWith(search);
+//   });
+//   res.status(200).json(newProducts);
+// });
+// app.listen(5000);
