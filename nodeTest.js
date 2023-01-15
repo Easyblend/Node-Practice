@@ -84,12 +84,27 @@
 
 const express = require("express");
 
+const { products } = require("./products");
+
 const path = require("path");
 const app = express();
 
-app.use(express.static("./publick"));
+// app.use(express.static("./publick"));
+
+// app.get("/", (req, res) => {
+//   res.sendFile(path.resolve("./navbar/index.html"));
+// });
+
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve("./navbar/index.html"));
+  res.end("<h1>HomePage</h1> <br/> <a href ='api/get-products'>Products</a>");
 });
 
+app.get("/api/get-products/query", (req, res) => {
+  const { id, name, search } = req.query;
+  console.log(search);
+  const newProducts = products.filter((product) => {
+    return product.first_name.startsWith(search);
+  });
+  res.status(200).json(newProducts);
+});
 app.listen(5000);
