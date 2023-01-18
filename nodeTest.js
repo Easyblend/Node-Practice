@@ -89,25 +89,25 @@ const { products } = require("./products");
 // const path = require("path");
 const app = express();
 
-app.listen(5000, () => {
-  console.log("Server Started");
-});
-
 app.use(express.static("./public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/api/request", (req, res) => {
-  res.send(products);
+  res.json(products);
 });
 
 app.post("/login", (req, res) => {
-  const { Name } = req.body;
-  console.log(req.body);
-  if (Name) {
-    return res.status(200).send(`Welcome ${Name}`);
-  } else {
-    return res.send("No user found");
+  const { name } = req.body;
+  if (!name) {
+    return res
+      .status(400)
+      .json({ status: "failed", msg: "Cnnot perform a post request" });
   }
+  return res.status(201).json({ status: "success", msg: [name] });
+});
+
+app.listen(5000, () => {
+  console.log("Server Started");
 });
 // app.use(express.static("./publick"));
 
