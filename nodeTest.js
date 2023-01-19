@@ -82,6 +82,7 @@
 
 // console.log("Hello");
 
+const { application } = require("express");
 const express = require("express");
 
 const { products } = require("./products");
@@ -89,8 +90,8 @@ const { products } = require("./products");
 // const path = require("path");
 const app = express();
 
-app.use(express.static("./public"));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static("./public"));
 
 app.get("/api/request", (req, res) => {
   res.json(products);
@@ -98,12 +99,21 @@ app.get("/api/request", (req, res) => {
 
 app.post("/login", (req, res) => {
   const { name } = req.body;
-  if (!name) {
-    return res
-      .status(400)
-      .json({ status: "failed", msg: "Cnnot perform a post request" });
-  }
+  console.log(name);
   return res.status(201).json({ status: "success", msg: [name] });
+  c;
+});
+
+app.post("/api/request/post", (req, res) => {
+  const { name } = req.body;
+  console.log(req.body);
+  return res.status(201).json({ data: name });
+});
+
+app.put("/api/request/:id", (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  console.log(id, name);
 });
 
 app.listen(5000, () => {
