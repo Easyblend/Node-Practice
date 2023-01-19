@@ -113,7 +113,27 @@ app.post("/api/request/post", (req, res) => {
 app.put("/api/request/:id", (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
-  console.log(id, name);
+  const person = products.filter((items) => {
+    return Number(id) === items.id;
+  });
+
+  const updatePerson = person.map((eachPerson) => {
+    if (eachPerson.id === Number(id)) {
+      return { ...eachPerson, first_name: name };
+    } else {
+      return eachPerson;
+    }
+  });
+
+  res.json(updatePerson);
+});
+
+app.delete("/api/request/:id", (req, res) => {
+  const { id } = req.params;
+  const newProduct = products.filter((product) => {
+    return product.id !== Number(id);
+  });
+  res.status(200).json(newProduct);
 });
 
 app.listen(5000, () => {
