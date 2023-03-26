@@ -82,63 +82,64 @@
 
 // console.log("Hello");
 
-const { application } = require("express");
-const express = require("express");
+// const { application } = require("express");
+// const express = require("express");
 
-const { products } = require("./products");
+// const { products } = require("./products");
 
-// const path = require("path");
-const app = express();
+// // const path = require("path");
+// const app = express();
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static("./public"));
+// app.use(express.urlencoded({ extended: false }));
+// app.use(express.static("./public"));
 
-app.get("/api/request", (req, res) => {
-  res.json(products);
-});
+// app.get("/api/request", (req, res) => {
+//   res.json(products);
+// });
 
-app.post("/login", (req, res) => {
-  const { name } = req.body;
-  console.log(name);
-  return res.status(201).json({ status: "success", msg: [name] });
-  c;
-});
+// app.post("/login", (req, res) => {
+//   const { name } = req.body;
+//   console.log(name);
+//   return res.status(201).json({ status: "success", msg: [name] });
+//   c;
+// });
 
-app.post("/api/request/post", (req, res) => {
-  const { name } = req.body;
-  console.log(req.body);
-  return res.status(201).json({ data: name });
-});
+// app.post("/api/request/post", (req, res) => {
+//   const { name } = req.body;
+//   console.log(req.body);
+//   return res.status(201).json({ data: name });
+// });
 
-app.put("/api/request/:id", (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  const person = products.filter((items) => {
-    return Number(id) === items.id;
-  });
+// app.put("/api/request/:id", (req, res) => {
+//   const { id } = req.params;
+//   const { name } = req.body;
+//   const person = products.filter((items) => {
+//     return Number(id) === items.id;
+//   });
 
-  const updatePerson = person.map((eachPerson) => {
-    if (eachPerson.id === Number(id)) {
-      return { ...eachPerson, first_name: name };
-    } else {
-      return eachPerson;
-    }
-  });
+//   const updatePerson = person.map((eachPerson) => {
+//     if (eachPerson.id === Number(id)) {
+//       return { ...eachPerson, first_name: name };
+//     } else {
+//       return eachPerson;
+//     }
+//   });
 
-  res.json(updatePerson);
-});
+//   res.json(updatePerson);
+// });
 
-app.delete("/api/request/:id", (req, res) => {
-  const { id } = req.params;
-  const newProduct = products.filter((product) => {
-    return product.id !== Number(id);
-  });
-  res.status(200).json(newProduct);
-});
+// app.delete("/api/request/:id", (req, res) => {
+//   const { id } = req.params;
+//   const newProduct = products.filter((product) => {
+//     return product.id !== Number(id);
+//   });
+//   res.status(200).json(newProduct);
+// });
 
-app.listen(5000, () => {
-  console.log("Server Started");
-});
+// app.listen(5000, () => {
+//   console.log("Server Started");
+// });
+
 // app.use(express.static("./publick"));
 
 // app.get("/", (req, res) => {
@@ -158,3 +159,18 @@ app.listen(5000, () => {
 //   res.status(200).json(newProducts);
 // });
 // app.listen(5000);
+
+const products = require("./Products");
+const express = require("express");
+
+const app = express();
+
+app.use(express.json());
+
+app.get("/products", (req, res) => {
+  res.send(products);
+});
+
+app.listen(3000, () => {
+  console.log("Server started");
+});
