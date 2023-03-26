@@ -171,6 +171,11 @@ app.get("/products", (req, res) => {
   res.send(products);
 });
 
+app.post("/products", (req, res) => {
+  const data = req.body.name;
+  res.send(data);
+});
+
 app.listen(3000, () => {
   console.log("Server started");
 });
