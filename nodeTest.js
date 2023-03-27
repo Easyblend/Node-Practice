@@ -163,7 +163,11 @@
 const products = require("./Products");
 const express = require("express");
 
+const { users } = require("./Users");
+
 const app = express();
+
+const bcrypt = require("bcrypt");
 
 app.use(express.json());
 
@@ -178,4 +182,21 @@ app.post("/products", (req, res) => {
 
 app.listen(3000, () => {
   console.log("Server started");
+});
+
+//dealing with users
+app.get("/users", (req, res) => {
+  res.send(users);
+});
+
+app.post("/users", async (req, res) => {
+  try {
+    const hashPassowrd = await bcrypt.hash(req.body.password, 10);
+    const name = req.body.name;
+
+    users.push({ name, password: hashPassowrd });
+    res.send(users);
+  } catch (error) {
+    res.status(500).send();
+  }
 });
