@@ -165,6 +165,8 @@ const express = require("express");
 
 const { users } = require("./Users");
 
+const jwt = require("jsonwebtoken");
+
 const app = express();
 
 const bcrypt = require("bcrypt");
@@ -198,5 +200,22 @@ app.post("/users", async (req, res) => {
     res.send(users);
   } catch (error) {
     res.status(500).send();
+  }
+});
+
+app.post("/users/login", (req, res) => {
+  try {
+    const username = { name: req.body.name };
+    const token = jwt.sign(username, "SomeRandomKey");
+    res.json({ token });
+    const authhead = req.headers["authorization"];
+    if (authhead) {
+      const authToken = authhead.split(" ")[1];
+      jwt.verify(authToken, "SomeRandomKey", (err, user) => {
+        console.log(user);
+      });
+    }
+  } catch (error) {
+    res.status(401).send();
   }
 });
