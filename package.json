@@ -2,9 +2,9 @@
   "name": "tutorial",
   "version": "1.0.0",
   "description": "",
-  "main": "nodeTest.js",
+  "main": "ExpressRouters/main.js",
   "scripts": {
-    "dev": "nodemon nodeTest.js",
+    "dev": "nodemon main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
