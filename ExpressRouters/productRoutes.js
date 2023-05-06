@@ -1,14 +1,14 @@
 const express = require("express");
 const { products } = require("../Products");
+const { getRequest, postRequest } = require("./function/getFucntions");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.status(201).json([{ staus: "200" }, products]);
+  getRequest(req, res);
 });
 
-router.delete("/:id", (req, res) => {
-  const id = req.params;
-  res.send(id);
+router.post("/", (req, res) => {
+  postRequest(req, res);
 });
 
 module.exports = router;
