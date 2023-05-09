@@ -1,6 +1,9 @@
 const express = require("express");
-
+const connectDatabase = require("../confi/dataBase");
+require("dotenv").config();
 const app = express();
+
+connectDatabase();
 
 app.use("/products", require("./productRoutes"));
 
